@@ -50,3 +50,7 @@ on
 t1.manager_id=t2.employee_id)
 where emp_salary > mgr_salary;
 
+--5 Display the top 5 employees with the highest salary increase compared to their previous job.
+
+
+
