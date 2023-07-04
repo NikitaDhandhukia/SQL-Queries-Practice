@@ -51,6 +51,84 @@ t1.manager_id=t2.employee_id)
 where emp_salary > mgr_salary;
 
 --5 Display the top 5 employees with the highest salary increase compared to their previous job.
+--6 List the employees who have never been assigned to any project.
+--7 Calculate the average salary of employees by their educational background.
+--8 Identify the employees who have spent the longest time in the company without a promotion.
+--9 Find the departments where the average salary is higher than the overall company average.
+--10 List the employees who have had the most different job titles throughout their career.
+--11 Calculate the total number of employees supervised by each manager.
+--12 Retrieve the departments with the highest employee turnover rate (ratio of employees leaving to total employees).
+--13 Identify the employees who have worked in multiple departments simultaneously.
+--14 List the employees who have received a performance rating of 5 for three consecutive years.
+--15 Calculate the average salary increase percentage for each year in the last five years.
+--16 Find the employees who have worked on the most projects.
+--17 Retrieve the names of employees who have worked on projects in all available departments.
+--18 List the employees who have worked on the same project as their spouse.
+--19 Calculate the average age of employees for each job title.
+--20 Identify the employees who have the highest total overtime hours.
+
+/* 1. Write a query to display the name (first name and last name) for those 
+employees who gets more salary than the employee whose ID is 163. */
+
+
+select first_name, last_name, salary 
+from employees 
+where salary>(select salary from employees where employee_id=163);
+
+/* 2. Write a query to display the name (first name and last name), salary, 
+department id, job id for those employees who works in the same designation as 
+the employee works whose id is 169. */
+
+select first_name, last_name, salary, department_id, job_id
+from employees 
+where job_id=(select job_id from employees 
+where employee_id = 169)
+
+/* 3. Write a query to display the name (first name and last name), salary, 
+department id for those employees who earn such amount of salary which is the 
+smallest salary of any of the departments. */
+
+select first_name, last_name, salary, department_id
+from employees 
+where salary in (select min(salary) from employees 
+group by department_id)
+
+
+/* 4. Write a query to display the employee id, employee name (first name and 
+last name) for all employees who earn more than the average salary. */
+
+select employee_id, first_name, last_name, salary 
+from employees 
+where salary>(select avg(salary) from employees)
+
+/* 5. Write a query to display the employee name (first name and last name), 
+employee id and salary of all employees who report to Payam. */
+
+
+select e.first_name, m.first_name
+from employees e
+join employees m 
+on e.manager_id= m.employee_id
+where m.first_name = 'Payam';
+
+/* 6. Write a query to display the department number, name (first name and 
+last name), job_id and department name for all employees in the Finance 
+department. */
+
+select e.department_id, e.first_name, e.last_name, e.job_id, d.department_name
+from employees e 
+left join departments d 
+on e.department_id = d.department_id 
+where d.department_name='Finance'
+
+
+/* 7. Write a query to display all the information of an employee whose salary and 
+reporting person id is 3000 and 121, respectively. */
+
+select * from employees 
+where salary = 3000 and manager_id=121;
+
+
 
 
 
