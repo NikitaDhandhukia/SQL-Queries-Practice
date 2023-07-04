@@ -27,11 +27,14 @@ HAVING COUNT(*) >=2;
 
 -- 3 Find the departments with the highest average salary.
 
-select department_id,avg(salary) 
-from employees
-group by department_id 
-order by 2 desc
-FETCH NEXT 1 ROWS ONLY
+select e.department_id,d.department_name,avg(salary)
+from employees e
+    Left join 
+departments d
+ on e.department_id =  d.department_id 
+group by e.department_id, d.department_name
+order by 3 desc
+FETCH NEXT 1 ROWS ONLY;
 
 -- 4 Identify the employees who have the salary greater as their managers.
 
