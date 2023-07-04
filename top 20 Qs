@@ -15,3 +15,16 @@ t1.manager_id=t2.employee_id
 order by t1.employee_id)
 where emp_hire_date < mgr_hire_date;
 
+-- 2 List the employees who have changed their department more than once.
+
+select * from job_history ;
+
+SELECT employee_id 
+FROM job_history 
+GROUP BY employee_id 
+HAVING COUNT(*) >=2;
+
+-- 3 Find the departments with the highest average salary.
+
+select 
+
