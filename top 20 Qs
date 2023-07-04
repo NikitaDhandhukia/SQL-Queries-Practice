@@ -1,6 +1,6 @@
 --SQL Queries Practise 
 
--- 1 Retrieve the names of employees who have joined the company before their managers.
+-- 1 Retrieve the names of employees who have joined the company before their managers. 85
 
 Select  employee_name, emp_hire_date,  
    manager_name, mgr_hire_date 
@@ -15,7 +15,7 @@ t1.manager_id=t2.employee_id
 order by t1.employee_id)
 where emp_hire_date < mgr_hire_date;
 
--- 2 List the employees who have changed their department more than once.
+-- 2 List the employees who have changed their department more than once. 93
 -- showing change in job_id designation
 
 select * from job_history ;
@@ -25,7 +25,7 @@ FROM job_history
 GROUP BY employee_id 
 HAVING COUNT(*) >=2;
 
--- 3 Find the departments with the highest average salary.
+-- 3 Find the departments with the highest average salary. 143
 
 select e.department_id,d.department_name,avg(salary)
 from employees e
@@ -36,7 +36,7 @@ group by e.department_id, d.department_name
 order by 3 desc
 FETCH NEXT 1 ROWS ONLY;
 
--- 4 Identify the employees who have the salary greater as their managers.
+-- 4 Identify the employees who have the salary greater as their managers. 139
 
 Select  employee_name, emp_salary,  
    manager_name, mgr_salary 
