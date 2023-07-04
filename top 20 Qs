@@ -16,6 +16,7 @@ order by t1.employee_id)
 where emp_hire_date < mgr_hire_date;
 
 -- 2 List the employees who have changed their department more than once.
+-- showing change in job_id designation
 
 select * from job_history ;
 
@@ -26,5 +27,23 @@ HAVING COUNT(*) >=2;
 
 -- 3 Find the departments with the highest average salary.
 
-select 
+select department_id,avg(salary) 
+from employees
+group by department_id 
+order by 2 desc
+FETCH NEXT 1 ROWS ONLY
+
+-- 4 Identify the employees who have the salary greater as their managers.
+
+Select  employee_name, emp_salary,  
+   manager_name, mgr_salary 
+from (Select t1.employee_id, t1.manager_id, (t1.first_name || ' ' || t1.last_name) employee_name, t1.salary emp_salary,  
+    t2.employee_id, (t2.first_name || ' ' || t2.last_name) manager_name, t2.salary mgr_salary 
+from 
+employees t1  
+join 
+employees t2 
+on 
+t1.manager_id=t2.employee_id)
+where emp_salary > mgr_salary;
 
