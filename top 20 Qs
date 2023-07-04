@@ -1,0 +1,17 @@
+--SQL Queries Practise 
+
+-- 1 Retrieve the names of employees who have joined the company before their managers.
+
+Select  employee_name, emp_hire_date,  
+   manager_name, mgr_hire_date 
+from (Select t1.employee_id, t1.manager_id, (t1.first_name || ' ' || t1.last_name) employee_name, t1.hire_date emp_hire_date,  
+    t2.employee_id, (t2.first_name || ' ' || t2.last_name) manager_name, t2.hire_date mgr_hire_date 
+from 
+employees t1  
+join 
+employees t2 
+on 
+t1.manager_id=t2.employee_id  
+order by t1.employee_id)
+where emp_hire_date < mgr_hire_date;
+
