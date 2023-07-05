@@ -239,4 +239,36 @@ select employee_id, first_name, last_name, department_id, salary from employees
 where salary in (Select salary from employees where salary > 3700) 
 
 
+/* 22. Write a query to display the department id and the total salary for those departments which 
+contains at least one employee. */
+
+select department_id, sum(salary) total_salary, count(*) count from employees having count(*)>=1 group by department_id order by department_id 
+
+/* 23. Write a query to display the employee id, name (first name and last name) and the job id column 
+with a modified title SALESMAN for those employees whose job title is ST_MAN and DEVELOPER for whose 
+job title is IT_PROG. */
+
+select employee_id, first_name, last_name, 
+CASE WHEN job_id='ST_MAN' THEN 'SALESMAN'
+     WHEN job_id='IT_PROG' THEN 'DEVELOPER' 
+     ELSE job_id END as job_id_mod
+from employees;
+
+/* 24. Write a query to display the employee id, name (first name and last name), salary and the 
+SalaryStatus column with a title HIGH and LOW respectively for those employees whose salary is more 
+than and less than the average salary of all employees. */
+
+select employee_id, first_name, last_name, salary, 
+CASE WHEN SALARY <= (SELECT AVG(SALARY) FROM EMPLOYEES) THEN 'LOW'
+     ELSE 'HIGH'
+     END as SalaryStatus 
+FROM EMPLOYEES 
+
+/* 25. Write a query to display the employee id, name (first name and last name), Salary, AvgCompare 
+(salary - the average salary of all employees) and the SalaryStatus column with a title HIGH and LOW 
+respectively for those employees whose salary is more than and less than the average salary of all employees.
+*/
+
+
+
 
