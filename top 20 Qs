@@ -129,6 +129,78 @@ select * from employees
 where salary = 3000 and manager_id=121;
 
 
+/* 8. Display all the information of an employee whose id is any of the number 134, 159 and 183. */
+
+select * from employees where 
+employee_id in (134, 159, 183);
+
+/* 9. Write a query to display all the information of the employees whose salary is within 
+the range 1000 and 3000. */
+
+select * from employees where 
+salary between 1000 and 3000
+
+
+/* 10. Write a query to display all the information of the employees whose 
+salary is within the range of smallest salary and 2500. */
+
+select * from employees 
+where salary between (select min(salary) from employees) and 2500
+
+/* 11. Write a query to display all the information of the employees who does 
+not work in those departments where some employees works whose manager id 
+within the range 100 and 200. */
+    
+select * from employees 
+where department_id not in (select department_id from departments 
+where manager_id between 100.0 and 200.0)
+
+/* 12. Write a query to display all the information for those employees 
+whose id is any id who earn the second highest salary. */
+
+   
+select * from employees where salary = (select distinct salary 
+from employees 
+order by salary desc 
+offset 1 rows 
+fetch next 1 rows only)
+
+/* 13. Write a query to display the employee name (first name and last name) and 
+hire date for all employees in the same department as Clara. Exclude Clara. */
+
+select first_name, last_name, hire_date from employees 
+where department_id != (Select department_id from employees where first_name = 'Clara')
+
+/* 14. Write a query to display the employee number and name (first name and last 
+name) for all employees who work in a department with any employee whose name 
+contains a T. */
+
+select employee_id, first_name, last_name from employees 
+where department_id 
+    in (select department_id from employees where first_name like '%T%')
+
+/* 15. Write a query to display the employee number, name (first name and last name),
+and salary for all employees who earn more than the average salary and who work 
+in a department with any employee with a J in their name. */
+
+select employee_id, first_name, last_name, salary
+from employees
+where salary > (select avg(salary) from employees) and 
+   department_id in (select department_id from employees where first_name like '%J%')
+
+/* 16. Display the employee name (first name and last name), employee id, and 
+job title for all employees whose department location is Toronto. */
+
+select first_name, last_name, employee_id, job_id 
+from employees e
+join departments d
+on e.department_id=d.department_id
+join locations l
+on d.location_id=l.location_id
+where city = 'Toronto'
+
+
+
 
 
 
