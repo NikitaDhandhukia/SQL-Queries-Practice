@@ -199,6 +199,23 @@ join locations l
 on d.location_id=l.location_id
 where city = 'Toronto'
 
+/* 17. Write a query to display the employee number, name (first name and last name) and 
+job title for all employees whose salary is smaller than any salary of those employees 
+whose job title is MK_MAN. */
+
+
+select employee_id,first_name, last_name,job_id from employees 
+    where salary <(select salary 
+from employees where job_id = 'MK_MAN')
+
+/* 18. Write a query to display the employee number, name (first name and last name) and 
+job title for all employees whose salary is smaller than any salary of those employees 
+whose job title is MK_MAN. Exclude Job title MK_MAN. */
+
+
+select employee_id,first_name, last_name,job_id from employees 
+    where salary <(select salary 
+from employees where job_id = 'MK_MAN') and job_id !='MK_MAN'
 
 
 
