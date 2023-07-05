@@ -218,6 +218,25 @@ select employee_id,first_name, last_name,job_id from employees
 from employees where job_id = 'MK_MAN') and job_id !='MK_MAN'
 
 
+/* 19. Write a query to display the employee number, name (first name and last name) and job title 
+for all employees whose salary is more than any salary of those employees whose job title is PU_MAN.
+Exclude job title PU_MAN. */
+
+
+select employee_id, first_name, last_name, job_id from employees
+where salary > (select salary from employees where job_id = 'PU_MAN') and job_id != 'PU_MAN'
+
+/* 20. Write a query to display the employee number, name (first name and last name) and job title
+for all employees whose salary is more than any average salary of any department. */
+
+select employee_id, first_name, last_name, job_id from employees
+where salary > any (select avg (salary) from employees group by department_id)
+
+/* 21. Write a query to display the employee name( first name and last name ) and department for 
+all employees for any existence of those employees whose salary is more than 3700. */
+
+select employee_id, first_name, last_name, department_id, salary from employees
+where salary in (Select salary from employees where salary > 3700) 
 
 
 
