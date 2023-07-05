@@ -1,4 +1,9 @@
 --SQL Queries Practise 
+***imp Q 
+Find maximum salary of a employee department wise, output should have first name, last name, department and salary
+select e.first_name,e.last_name,e.department_id,d.max_salary from hr.employees e join 
+(select d.department_id,MAX(d.salary) as max_salary from hr.employees d  
+    group by d.department_id) d on e.department_id = d.department_id where e.salary=d.max_salary
 
 -- 1 Retrieve the names of employees who have joined the company before their managers. 85
 
