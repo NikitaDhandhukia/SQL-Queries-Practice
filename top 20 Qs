@@ -269,6 +269,14 @@ FROM EMPLOYEES
 respectively for those employees whose salary is more than and less than the average salary of all employees.
 */
 
+select employee_id, first_name, last_name, salary, 
+    round(SALARY-(SELECT AVG(SALARY) FROM EMPLOYEES)) AS AvgCompare,
+	CASE WHEN SALARY <= (SELECT AVG(SALARY) FROM EMPLOYEES) THEN 'LOW'
+     ELSE 'HIGH'
+     END as SalaryStatus 
+from employees
+
+
 
 
 
