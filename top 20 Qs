@@ -281,6 +281,71 @@ select employee_id, first_name, last_name, salary,
      END as SalaryStatus 
 from employees
 
+/* 26. Write a subquery that returns a set of rows to find all departments that do actually have one or more
+employees assigned to them. */
+
+select department_name from departments where department_id in 
+    (select department_id from employees 
+    having count(employee_id)>= 1
+    group by department_id )
+
+
+/* 27. Write a query that will identify all employees who work in departments located in the United Kingdom. */
+
+select e.first_name, e.last_name, c.country_name
+from 
+employees e
+inner join
+departments d
+on e.department_id=d.department_id 
+inner join
+locations l
+on d.location_id=l.location_id 
+inner join
+countries c 
+on l.country_id=c.country_id 
+where country_name='United Kingdom'
+
+/* 28. Write a query to identify all the employees who earn more than the average and who work in any 
+of the IT departments. */
+
+select e.first_name, e.last_name
+from employees e
+join  
+departments d
+on e.department_id=d.department_id
+where e.salary > (select avg(salary) from employees)
+		and d.department_id in (select department_id from departments where department_name like '%IT%')
+
+/* 29. Write a query to determine who earns more than Mr. Ozer. */
+select first_name, last_name, salary from employees 
+    where salary > (select salary from employees where last_name = 'Ozer')
+		order by salary
+
+/* 30. Write a query to find out which employees have a manager who works for a department based in the US. */
+
+select first_name, last_name from employees 
+    where manager_id in 
+    (select employee_id from employees
+    where department_id in 
+    (select department_id from departments 
+    where location_id in (select location_id from locations where  country_id ='US')))
+
+/* 31. Write a query which is looking for the names of all employees whose salary is greater than 50% of 
+their department’s total salary bill. */
+
+select e1.first_name, e1.last_name from employees e1 where 
+    e1.salary >(select 0.50 * SUM(e2.Salary) from employees e2 
+where e1.department_id = e2.department_id group by e2.department_id )
+
+/* 32. Write a query to get the details of employees who are managers. */
+
+select * from employees where employee_id in (select manager_id from departments)
+
+/* 33. Write a query to get the details of employees who manage a department. */
+
+
+
 
 
 
