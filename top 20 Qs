@@ -344,6 +344,40 @@ select * from employees where employee_id in (select manager_id from departments
 
 /* 33. Write a query to get the details of employees who manage a department. */
 
+select * from employees where employee_id in (select manager_id from departments)
+
+/* 34. Write a query to display the employee id, name (first name and last name), salary, 
+department name and city for all the employees who gets the salary as the salary earn by 
+the employee which is maximum within the joining person January 1st, 2002 and December 31st, 
+2003. */
+    
+select e.employee_id, e.first_name, e.last_name, e.salary, d.department_name, l.city
+from employees e 
+join departments d 
+on e.department_id=d.department_id
+join locations l 
+on d.location_id=l.location_id
+where salary = (select max(salary) from employees
+where hire_date between '01-JAN-2002' and '31-DEC-2003')
+
+
+
+/* 35. Write a query in SQL to display the department code and name for all departments 
+which located in the city London. */
+
+select department_id, department_name 
+
+
+    
+where city='London'
+
+
+
+
+
+
+
+
 
 
 
