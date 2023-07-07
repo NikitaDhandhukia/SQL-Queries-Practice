@@ -1,0 +1,24 @@
+
+--The benefits for the state of California have been changed based on a local ordinance. 
+    So the benefits representative has asked you to compile a list of people who are affected. 
+    Write a query to display the employee ID and last name of the employees who work in the state of California. 
+
+select e.employee_id, e.last_name, d.location_id
+from employees e join departments d
+on e.department_id = d.department_id 
+where d.location_id = (select location_id from locations where state_province = 'California')
+
+--Which all departments have more than 3 employees from same city
+
+select l.city, count(employee_id) count_emp
+from employees e 
+join departments d 
+on e.department_id = d.department_id 
+join locations l 
+on d.location_id = l.location_id 
+having count(employee_id) > 3
+group by l.city
+order by count_emp desc
+
+
+    
